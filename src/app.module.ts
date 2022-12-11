@@ -17,6 +17,10 @@ import { PermissionModule } from './permission/permission.module';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: 'schema.gql',
+      // cors: {
+      //   origin: 'http://localhost:3000',
+      //   credentials: true,
+      // },
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],

@@ -1,23 +1,23 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { AppService } from './app.service';
-
-interface auth {
-  oauth_token: string;
-  oauth_token_secret: string;
-  oauth_callback_confirmed: "true";
-  url: string;
-}
+import { auth, callback } from './interface/login.interface';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly appService: AppService,
+    private configService: ConfigService
+    ) {}
 
-  @Get('auth') // Generate link to connect on twitter
+  @Get('auth-twitter') // Generate link to connect on twitter
   async authenticate(): Promise<auth> {
     return await this.appService.getAuth()
   }
 
-  // @Post('callback')
-  // async 
+  @Post('callback-twitter')
+  async twitter(@Body() body:callback): Promise<any> {
+    return await this.appService.callback(body);
+  }
 
 }

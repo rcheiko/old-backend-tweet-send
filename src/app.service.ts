@@ -1,13 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Body, Injectable } from '@nestjs/common';
 import { TwitterApi } from 'twitter-api-v2';
 import { ConfigService } from '@nestjs/config';
-
-interface auth {
-  oauth_token: string;
-  oauth_token_secret: string;
-  oauth_callback_confirmed: "true";
-  url: string;
-}
+import { auth, callback } from './interface/login.interface';
 
 @Injectable()
 export class AppService {
@@ -23,9 +17,18 @@ export class AppService {
     })
 
     const authLink = await client.generateAuthLink('http://localhost:8000')
-    console.log(authLink)
     return (authLink)
   }
 
+  async callback(body:callback): Promise<any> {
+    const client = new TwitterApi({
+      appKey: this.configService.get('API_KEY_TWITTER'),
+      appSecret: this.configService.get('API_KEY_SECRET_TWITTER'),
+      accessToken: body.oauth_token,
+      accessSecret: body.oauth_token_secret,
+    });
+    console.log(body);
+    return null;
+  }
   
 }
