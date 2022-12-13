@@ -4,13 +4,13 @@ import { User } from "../entities/user.entity";
 @InputType()
 export class userCreateInput {
     @Field(() => String)
-    user_id: string;
+    user_id: User['user_id']
 
     @Field(() => String)
-    accessToken: string;
+    accessToken: User['accessToken']
 
     @Field(() => String)
-    accessSecret: string;
+    accessSecret: User['accessSecret']
 }
 
 @ObjectType()

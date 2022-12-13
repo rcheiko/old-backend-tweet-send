@@ -1,8 +1,17 @@
-import { userCreateInput, userCreateOutput } from './user-create.dto';
-import { InputType, ObjectType } from "@nestjs/graphql";
+import { Field, InputType, ObjectType } from "@nestjs/graphql";
+import { User } from '../entities/user.entity';
 
 @InputType()
-export class userUpdateInput extends userCreateInput {}
+export class userUpdateInput {
+    @Field(() => String)
+    accessToken: User['accessToken']
+
+    @Field(() => String)
+    accessSecret: User['accessSecret']
+}
 
 @ObjectType()
-export class userUpdateOutput extends userCreateOutput {}
+export class userUpdateOutput{
+    @Field(() => User)
+    user: User
+}

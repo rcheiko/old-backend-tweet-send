@@ -11,9 +11,9 @@ async function loadApp() {
     .setDescription('A TweetDeck Responsive with some new feature')
     .setVersion('1.0')
     .addTag('tweet')
-    .build();
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+    .build()
+  const document = SwaggerModule.createDocument(app, config)
+  SwaggerModule.setup('api', app, document)
 
   // app.use(helmet());
 
@@ -21,7 +21,7 @@ async function loadApp() {
     origin: [process.env.FRONTEND_URL]
   });
 
-  await app.listen(process.env.PORT);
+  await app.listen(process.env.PORT)
 }
 
 loadApp();
