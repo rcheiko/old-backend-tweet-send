@@ -8,7 +8,7 @@ export class AppService {
 
   constructor(
     private configService: ConfigService,
-  ) {}
+  ) { }
 
   async getAuth(): Promise<auth> {
     const client = new TwitterApi({
@@ -20,15 +20,22 @@ export class AppService {
     return (authLink)
   }
 
-  async callback(body:callback): Promise<any> {
+  async callback(body: callback): Promise<any> {
     const client = new TwitterApi({
       appKey: this.configService.get('API_KEY_TWITTER'),
       appSecret: this.configService.get('API_KEY_SECRET_TWITTER'),
       accessToken: body.oauth_token,
       accessSecret: body.oauth_token_secret,
     });
-    console.log(body);
-    return null;
+    try {
+      const { client: loggedClient, accessToken, accessSecret } = await client.login(body.oauth_verifier)
+      console.log('loggedClient', loggedClient)
+      console.log('accessToken', accessToken)
+      console.log('accessSecret', accessSecret)  
+    } catch (err) {
+      console.log('error: refused to connect')
+      return 'error'
+    }
   }
-  
+
 }

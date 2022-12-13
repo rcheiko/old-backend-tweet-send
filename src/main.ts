@@ -15,7 +15,7 @@ async function loadApp() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
-  app.use(helmet()); // Security
+  // app.use(helmet());
 
   app.enableCors({
     origin: [process.env.FRONTEND_URL]
