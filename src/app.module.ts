@@ -1,3 +1,4 @@
+import { UserService } from './user/user.service';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -10,6 +11,7 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { TweetModule } from './tweet/tweet.module';
 import { PermissionModule } from './permission/permission.module';
+import { User } from './user/entities/user.entity';
 
 @Module({
   imports: [
@@ -37,11 +39,12 @@ import { PermissionModule } from './permission/permission.module';
         synchronize: true, // use just in developpement
       })
     }),
+    TypeOrmModule.forFeature([User]),
     UserModule,
     TweetModule,
     PermissionModule
   ],
   controllers: [AppController],
-  providers: [AppService, AppResolver],
+  providers: [AppService, AppResolver, UserService],
 })
 export class AppModule {}

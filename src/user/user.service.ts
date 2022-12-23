@@ -41,7 +41,7 @@ export class UserService {
         })
         if (!user)
             throw new HttpException(`Not Found user_id: ${user_id} so he cannot be deleted`, HttpStatus.NOT_FOUND);
-        await user.remove();
+        await user.remove()
         return { user_id }
     }
 
