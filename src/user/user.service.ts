@@ -52,14 +52,15 @@ export class UserService {
         return user
     }
 
-    async userFindOne(user_id: User['user_id']): Promise<User> {
+    async userFindOne(user_id: User['user_id']): Promise<User | undefined> {
         const user = await this.userRepository.findOne({
             where: {
                 user_id: user_id
             }
         })
         if (!user)
-            throw new HttpException(`Not Found user_id: ${user_id}`, HttpStatus.NOT_FOUND)
+            // throw new HttpException(`Not Found user_id: ${user_id}`, HttpStatus.NOT_FOUND)
+            return undefined;
         return user
     }
 }

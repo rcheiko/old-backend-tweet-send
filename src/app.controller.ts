@@ -22,7 +22,7 @@ export class AppController {
 
   @Post('callback-twitter')
   async twitter(@Body() body:callback): Promise<any> {
-    return await this.appService.callback(body);
+    return await this.appService.callback(body)
   }
 
 }

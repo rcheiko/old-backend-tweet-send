@@ -8,5 +8,6 @@ import { userQueriesResolver } from './resolvers/user.queries.resolver';
 @Module({
   imports: [TypeOrmModule.forFeature([User])],
   providers: [UserService, userMutationResolver, userQueriesResolver],
+  exports: [UserService]
 })
 export class UserModule {}

@@ -12,6 +12,7 @@ import { UserModule } from './user/user.module';
 import { TweetModule } from './tweet/tweet.module';
 import { PermissionModule } from './permission/permission.module';
 import { User } from './user/entities/user.entity';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -42,9 +43,17 @@ import { User } from './user/entities/user.entity';
     TypeOrmModule.forFeature([User]),
     UserModule,
     TweetModule,
-    PermissionModule
+    PermissionModule,
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        secret: configService.get('JWT_SECRET'),
+        signOptions: { expiresIn: '1d' },
+      })
+    })
   ],
   controllers: [AppController],
   providers: [AppService, AppResolver, UserService],
 })
-export class AppModule {}
+export class AppModule { }
