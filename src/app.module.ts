@@ -44,14 +44,10 @@ import { JwtModule } from '@nestjs/jwt';
     UserModule,
     TweetModule,
     PermissionModule,
-    JwtModule.registerAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        secret: configService.get('JWT_SECRET'),
-        signOptions: { expiresIn: '1d' },
-      })
-    })
+    JwtModule.register({
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: '1d' }
+    }),
   ],
   controllers: [AppController],
   providers: [AppService, AppResolver, UserService],

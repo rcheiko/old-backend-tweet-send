@@ -38,8 +38,8 @@ export class AppService {
     try {
       const { client: loggedClient, accessToken, accessSecret } = await client.login(body.oauth_verifier)
       // console.log('loggedClient', loggedClient)
-      console.log('accessToken', accessToken)
-      console.log('accessSecret', accessSecret)
+      // console.log('accessToken', accessToken)
+      // console.log('accessSecret', accessSecret)
 
       const user = await loggedClient.v2.me(); // Get user data
 
@@ -63,7 +63,7 @@ export class AppService {
 
   async checkUserExist(user_id: string): Promise<boolean> {
     const res = await this.userService.userFindOne(user_id)
-    console.log("RES : ", res);
+    // console.log("RES : ", res);
     if (res === undefined)
       return false
     return true
